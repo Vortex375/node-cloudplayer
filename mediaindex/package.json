@@ -1,0 +1,25 @@
+{
+  "name": "mediaindex",
+  "version": "0.0.1",
+  "description": "Media Indexer",
+  "main": "build/mediaindex.js",
+  "dependencies": {
+    "async": "^1.5.2",
+    "cli-spinner": "^0.2.4",
+    "jsonminify": "^0.2.3",
+    "lodash": "^3.10.1",
+    "minimist": "^1.2.0",
+    "sprintf": "^0.1.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-changed": "^1.3.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-watch": "^4.3.5"
+  },
+  "private": true
+}
