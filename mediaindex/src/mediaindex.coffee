@@ -15,12 +15,12 @@ console.log("MediaIndex")
 console.log()
 
 if argv._.length != 3
-    console.log "Usage: mediaindex <device name> <db url> <input dir>"
+    console.log "Usage: mediaindex <db url> <target-coll> <input dir>"
     process.exit(1)
 
 walker  = new DirWalker(argv._[2])
 indexer = new Indexer()
-db      = new Database(argv._[1], argv._[0])
+db      = new Database(argv._[0], argv._[1])
 
 taggedFiles = 0
 numFiles = 0

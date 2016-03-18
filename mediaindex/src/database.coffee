@@ -8,7 +8,7 @@ PARALLEL_LIMIT = 3
 
 class Database extends EventEmitter
 
-    constructor: (@url, @deviceName) ->
+    constructor: (@url, @targetColl) ->
         @queue = async.queue ((tag, cb) => @saveTag(tag, cb)), PARALLEL_LIMIT
         @queue.drain = =>
             @emit 'done'
@@ -18,7 +18,7 @@ class Database extends EventEmitter
             if err?
                 return cb(err)
             @db = db
-            @db.collection 'tracks', (err, coll) =>
+            @db.collection @targetColl, (err, coll) =>
                 if err?
                     return cb(err)
                 @coll = coll

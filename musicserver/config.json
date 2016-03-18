@@ -1,0 +1,12 @@
+{
+    "db": "mongodb://localhost:27017/musicserver",
+
+    "devices": {
+        "bananas": {
+            "type": "sftp",
+            "sftp-host": "bananapi",
+            "sftp-username": "banana",
+            "sftp-password": "banana"
+        }
+    }
+}

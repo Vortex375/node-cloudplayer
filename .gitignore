@@ -1,2 +1,4 @@
 /mediaindex/build
+/musicserver/build
 node_modules
+/db
