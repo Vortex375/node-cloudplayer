@@ -13,8 +13,8 @@ class Indexer extends EventEmitter
         @queue.drain = =>
             @emit 'done'
 
-    pushFile: (file) ->
-        @queue.push(file)
+    pushFile: (file, cb) ->
+        @queue.push(file, cb)
 
     readTag: (file, cb) ->
         taglib.tag file, (err, tag) =>
