@@ -33,7 +33,7 @@ db.on 'error', (err, tag) ->
 queue = async.queue (file, cb) ->
     async.waterfall [
         (cb) -> indexer.readTag(file, cb)
-        (tag, cb) -> db.saveTag (file: file, tag: tag), cb
+        (tag, stats, cb) -> db.saveTag (file: file, stats: stats, tag: tag), cb
     ], (err) ->
         # ignore errors here
         taggedFiles++

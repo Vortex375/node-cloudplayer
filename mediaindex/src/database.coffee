@@ -36,9 +36,12 @@ class Database extends EventEmitter
         @queue.push(tag, cb)
 
     saveTag: (tag, cb) ->
-        tag.tag.path = tag.file
-        tag.tag.device = @deviceName
-        @coll.update (path: tag.file), tag.tag, (w: 1, upsert: true), (err, result) =>
+        doc = _.assign {}, tag.tag
+        doc.device = @deviceName
+        doc.path = tag.file
+        doc.lmod = tag.stats.mtime
+        doc.size = tag.stats.size
+        @coll.update (path: doc.path), doc, (w: 1, upsert: true), (err, result) =>
             if err?
                 @emit "error", err, tag
                 return cb(err, tag)

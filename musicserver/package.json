@@ -7,11 +7,13 @@
     "async": "^1.5.2",
     "bunyan": "^1.8.0",
     "cli-spinner": "^0.2.4",
+    "express": "^4.13.4",
     "fluent-ffmpeg": "^2.0.1",
     "jsonminify": "^0.2.3",
     "lodash": "^3.10.1",
     "minimist": "^1.2.0",
     "mongodb": "^2.1.7",
+    "range-parser": "^1.0.3",
     "sprintf": "^0.1.5",
     "ssh2": "^0.5.0"
   },

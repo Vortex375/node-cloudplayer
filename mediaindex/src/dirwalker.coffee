@@ -31,7 +31,7 @@ class DirWalker extends EventEmitter
                     if stats.isDirectory()
                         @queue.push file
                     else if stats.isFile()
-                        @emit 'file', file
+                        @emit 'file', file, stats
                     return cb()
             , cb
 
