@@ -9,7 +9,7 @@ DirWalker   = require('./dirwalker')
 Indexer     = require('./indexer')
 Database    = require('./database')
 
-PARALLEL_LIMIT = 3
+PARALLEL_LIMIT = 1
 
 console.log()
 console.log("MediaIndex")
