@@ -9,17 +9,17 @@ PARALLEL_LIMIT = 3
 class Indexer extends EventEmitter
 
     constructor: ->
-        @queue = async.queue ((file, stats, cb) => @readTag(file, stats, cb)), PARALLEL_LIMIT
+        @queue = async.queue ((file, cb) => @readTag(file, cb)), PARALLEL_LIMIT
         @queue.drain = =>
             @emit 'done'
 
-    pushFile: (file, stats, cb) ->
-        @queue.push(file, stats, cb)
+    pushFile: (file, cb) ->
+        @queue.push(file, cb)
 
-    readTag: (file, stats, cb) ->
+    readTag: (file, cb) ->
         taglib.tag file, (err, tag) =>
-            @emit "tag", file, tag, stats
-            return cb(err, tag, stats)
+            @emit "tag", file, tag
+            return cb(err, tag)
 
 
 module.exports = Indexer

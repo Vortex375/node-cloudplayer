@@ -30,19 +30,19 @@ walker.on 'error', (err) ->
 db.on 'error', (err, tag) ->
     console.warn("Failed to save tag for:", tag.file)
 
-queue = async.queue (file, cb) ->
+queue = async.queue (file, stats, cb) ->
     async.waterfall [
         (cb) -> indexer.readTag(file, cb)
-        (tag, stats, cb) -> db.saveTag (file: file, stats: stats, tag: tag), cb
+        (tag, cb) -> db.saveTag (file: file, stats: stats, tag: tag), cb
     ], (err) ->
         # ignore errors here
         taggedFiles++
         cb()
 , PARALLEL_LIMIT
 
-walker.on 'file', (file) ->
+walker.on 'file', (file, stats) ->
     numFiles++
-    queue.push file
+    queue.push file, stats
 
 console.log "connecting to database..."
 db.open (err) ->
