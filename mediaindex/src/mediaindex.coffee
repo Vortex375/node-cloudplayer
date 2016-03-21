@@ -3,6 +3,7 @@ argv        = require('minimist')(process.argv.slice(2))
 Spinner     = require('cli-spinner').Spinner
 sprintf     = require('sprintf')
 async       = require('async')
+_           = require('lodash')
 
 DirWalker   = require('./dirwalker')
 Indexer     = require('./indexer')
@@ -30,10 +31,13 @@ walker.on 'error', (err) ->
 db.on 'error', (err, tag) ->
     console.warn("Failed to save tag for:", tag.file)
 
-queue = async.queue (file, stats, cb) ->
+queue = async.queue (info, cb) ->
     async.waterfall [
-        (cb) -> indexer.readTag(file, cb)
-        (tag, cb) -> db.saveTag (file: file, stats: stats, tag: tag), cb
+        (cb) ->
+            indexer.readTag(info.file, cb)
+        (tag, cb) ->
+            info.tag = tag
+            db.saveTag info, cb
     ], (err) ->
         # ignore errors here
         taggedFiles++
@@ -42,7 +46,7 @@ queue = async.queue (file, stats, cb) ->
 
 walker.on 'file', (file, stats) ->
     numFiles++
-    queue.push file, stats
+    queue.push (file: file, stats: stats)
 
 console.log "connecting to database..."
 db.open (err) ->
